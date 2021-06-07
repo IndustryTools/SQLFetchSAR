@@ -9,7 +9,10 @@ is dependent on table on different instance/DBserver which require further corre
 You can use this output and dump in table to analyze  historical data(increase/decrease in size and reference count) which offers granularity at table level instead of DB level
 --------------------------------------------------------------------------------------------------------------------------------------------------------------------
 SQL User running this script need to have following permissions (check output of below query, SQL login must have public access on master DB with guest account enabled): 
-SELECT name,DATABASEPROPERTYEX(name, 'UserAccess'),has_dbaccess(name),* FROM master.sys.databases
+
+1. SELECT name,DATABASEPROPERTYEX(name, 'UserAccess'),has_dbaccess(name),* FROM master.sys.databases
 WHERE DATABASEPROPERTYEX(name, 'UserAccess') = 'MULTI_USER' AND has_dbaccess(name) = 1
-SELECT HAS_PERMS_BY_NAME(null, null, 'VIEW SERVER STATE');  /*Must be 1*/
-SELECT HAS_PERMS_BY_NAME('master', 'DATABASE', 'ANY');  /*Must be 1, instead of master DB, use your DB name*/
+
+2. SELECT HAS_PERMS_BY_NAME(null, null, 'VIEW SERVER STATE');  /*Must be 1*/
+
+3. SELECT HAS_PERMS_BY_NAME('master', 'DATABASE', 'ANY');  /*Must be 1, instead of master DB, use your DB name*/
